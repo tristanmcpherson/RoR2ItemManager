@@ -7,7 +7,40 @@ using MonoMod;
 using RoR2;
 
 namespace RoR2 {
+    public class PickupSelection
+    {
+        public List<PickupIndex> Pickups { get; set; }
+        public float DropChance { get; set; } = 1.0f;
+    }
+
+
 	public static class ItemDropManager {
+
+        public static Dictionary<DropLocation, List<PickupSelection>> Selection = new Dictionary<DropLocation, List<PickupSelection>>();
+
+        public enum DropLocation
+        {
+            Boss,
+            Chest,
+            Shrine
+        }
+
+        public static void AddDropInformation(DropLocation dropLocation, List<PickupSelection> pickupSelections)
+        {
+            Selection[dropLocation] = pickupSelections;
+        }
+
+        public static PickupIndex GetSelection(DropLocation dropLocation, float normalizedIndex)
+        {
+            var selections = Selection[dropLocation];
+            WeightedSelection<PickupIndex> weightedSelection = new WeightedSelection<PickupIndex>();
+            foreach (var selection in selections)
+                foreach (var pickup in selection.Pickups)
+                    weightedSelection.AddChoice(pickup, selection.DropChance);
+
+            return weightedSelection.Evaluate(normalizedIndex);
+        }
+
 		public static List<ItemIndex> Tier1DropList = new List<ItemIndex>
 		{
 			ItemIndex.Syringe,

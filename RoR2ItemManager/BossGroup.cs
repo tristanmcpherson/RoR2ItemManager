@@ -63,7 +63,8 @@ namespace RoR2 {
 					if (component) {
 						int participatingPlayerCount = Run.instance.participatingPlayerCount;
 						if (participatingPlayerCount != 0 && this.dropPosition) {
-							ItemIndex itemIndex = ItemDropManager.BossDropList[this.rng.RangeInt(0, ItemDropManager.BossDropList.Count)];
+                            //ItemIndex itemIndex = ItemDropManager.BossDropList[this.rng.RangeInt(0, ItemDropManager.BossDropList.Count)];
+                            ItemIndex itemIndex = ItemDropManager.GetSelection(ItemDropManager.DropLocation.Boss, rng.nextNormalizedFloat).itemIndex;
 							int num2 = participatingPlayerCount * (1 + (TeleporterInteraction.instance ? TeleporterInteraction.instance.shrineBonusStacks : 0));
 							float angle = 360f / (float)num2;
 							Vector3 vector = Quaternion.AngleAxis((float)UnityEngine.Random.Range(0, 360), Vector3.up) * (Vector3.up * 40f + Vector3.forward * 5f);
