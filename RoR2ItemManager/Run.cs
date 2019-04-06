@@ -21,7 +21,6 @@ namespace RoR2
 	        this.availableTier2DropList.AddRange(ItemDropManager.Tier2DropList.Select(i => new PickupIndex(i)));
 	        this.availableTier3DropList.AddRange(ItemDropManager.Tier3DropList.Select(i => new PickupIndex(i)));
 
-
 			this.availableEquipmentDropList.Add(new PickupIndex(EquipmentIndex.CritOnUse));
 
             this.smallChestDropTierSelector.Clear();
